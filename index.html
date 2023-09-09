@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+  <title>Domain Rule Form</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js"></script> -->
+
+</head>
+
+<body>
+  <div class="top-tabs d-xl-none"> <!-- Only visible on small screens -->
+    <div class="top-tab active" data-container="container1" id="tab1">Start Proxy proxy Server</div>
+    <div class="top-tab" data-container="container2" id="tab2">Configure Domain Rules</div>
+  </div>
+  <div class="container-wrapper">
+      <!-- Top Tabs for Small Screens -->
+      <!-- Container 1 -->
+      <div class="resizable-container" id="container1">
+          <!-- Content for Container 1 -->
+          <h3>Start Proxy proxy Server</h3>
+          <div class="container">
+          <!-- Jupyter Cell UI -->
+          <div class="cell-container">
+            <div class="btn-group" role="group" aria-label="Cell Actions">
+              <!-- Buttons with click event handlers -->
+              <button type="button" class="btn btn-success" id="startBtn">Start</button>
+              <button type="button" class="btn btn-danger" id="stopBtn">Stop</button>
+              <button type="button" class="btn btn-primary" id="rerunBtn">Rerun</button>
+            </div>
+            <!-- Input box for specifying the port number -->
+            <div class="mb-3">
+              <label for="portInput" class="form-label">Proxy Port</label>
+              <input type="number" class="form-control" id="portInput" placeholder="Enter port number" value="8080">
+            </div>
+
+            <div class="mb-3">
+              <p class="" id="proxyUrl"></p>
+            </div>
+
+            <!-- Terminal-like area for logs or code -->
+            <div class="terminal" id="log-container">
+              <!-- Example log/code lines -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Drag handle -->
+      <div class="drag-handle" id="dragHandle"></div>
+      <!-- Container 2 -->
+      <div class="resizable-container" id="container2">
+        <div class="edit-popup1" id="editPopup">
+          <div class="edit-popup bg-dark">
+            <h4>Edit Domain Rule</h4>
+            <form id="editForm">
+              <div class="mb-3">
+                <label for="domain" class="form-label">Domain</label>
+                <input type="text" class="form-control" id="editDomain" name="editDomain" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-check-label">Rule:</label>
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" id="editPerSecondRule" name="editPerSecondRule">
+                  <label class="form-check-label" for="editPerSecondRule">Per Second Rule</label>
+                </div>
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" id="editPerMinuteRule" name="editPerMinuteRule">
+                  <label class="form-check-label" for="editPerMinuteRule">Per Minute Rule</label>
+                </div>
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" id="editPerHourRule" name="editPerHourRule">
+                  <label class="form-check-label" for="editPerHourRule">Per Hour Rule</label>
+                </div>
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" id="editPerDayRule" name="editPerDayRule">
+                  <label class="form-check-label" for="editPerDayRule">Per Day Rule</label>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="editMaxAmountPerDay" class="form-label">Max Amount Per Day</label>
+                <input type="number" step="0.01" class="form-control" id="editMaxAmountPerDay" name="editMaxAmountPerDay" required>
+              </div>
+              <div class="mb-3">
+                <label for="editMaxFreeRequestsPerDay" class="form-label">Max Free Requests Per Day</label>
+                <input type="number" class="form-control" id="editMaxFreeRequestsPerDay" name="editMaxFreeRequestsPerDay" required>
+              </div>
+              <div class="mb-3">
+                <label for="editMaxFreeRequestsPerMinute" class="form-label">Max Free Requests Per Minute</label>
+                <input type="number" class="form-control" id="editMaxFreeRequestsPerMinute" name="editMaxFreeRequestsPerMinute" required>
+              </div>
+              <div class="mb-3">
+                <label for="editCostPerRequest" class="form-label">Cost Per Request</label>
+                <input type="number" step="0.01" class="form-control" id="editCostPerRequest" name="editCostPerRequest" required>
+              </div>
+              <button type="button" class="btn btn-success" id="saveEditBtn">Save</button>
+              <button type="button" class="btn btn-secondary" id="cancelEditBtn">Cancel</button>
+            </form>
+          </div>
+        </div>
+        <h3>Configure Domain Rules</h3>
+        <div class="container mt-5">
+          <button class="btn btn-primary mb-3" id="toggleRuleFormBtn" data-bs-toggle="collapse" data-bs-target="#ruleForm">Add More Domain Rule</button>
+          <div id="ruleForm" class="collapse">
+            <form>
+              <div class="mb-3">
+                <label for="domain" class="form-label">Domain</label>
+                <input type="text" class="form-control" id="domain" name="domain" required placeholder=" e.g. realtor.p.rapidapi.com">
+                <span class="hint">Hint: If API domain in https://realtor.p.rapidapi.com/locations/v2/auto-complete only add "realtor.p.rapidapi.com" </span>
+              </div>
+              <div class="mb-3">
+                <label class="form-check-label">Rule:</label>
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" id="perSecondRule" name="perSecondRule" placeholder="0">
+                  <label class="form-check-label" for="perSecondRule">Per Second Rule</label>
+                </div>
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" id="perMinuteRule" name="perMinuteRule" placeholder="0">
+                  <label class="form-check-label" for="perMinuteRule">Per Minute Rule</label>
+                </div>
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" id="perHourRule" name="perHourRule" placeholder="0">
+                  <label class="form-check-label" for="perHourRule">Per Hour Rule</label>
+                </div>
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" id="perDayRule" name="perDayRule" placeholder="0">
+                  <label class="form-check-label" for="perDayRule">Per Day Rule</label>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="maxAmountPerDay" class="form-label">Max Amount Per Day</label>
+                <input type="number" step="0.01" class="form-control" id="maxAmountPerDay" name="maxAmountPerDay" required placeholder="0">
+              </div>
+              <div class="mb-3">
+                <label for="maxFreeRequestsPerDay" class="form-label">Max Free Requests Per Day</label>
+                <input type="number" class="form-control" id="maxFreeRequestsPerDay" name="maxFreeRequestsPerDay" required placeholder="0">
+              </div>
+              <div class="mb-3">
+                <label for="maxFreeRequestsPerMinute" class="form-label">Max Free Requests Per Minute</label>
+                <input type="number" class="form-control" id="maxFreeRequestsPerMinute" name="maxFreeRequestsPerMinute" required placeholder="0">
+              </div>
+              <div class="mb-3">
+                <label for="costPerRequest" class="form-label">Cost Per Request</label>
+                <input type="number" step="0.01" class="form-control" id="costPerRequest" name="costPerRequest" required placeholder="0">
+              </div>
+              <button type="button" class="btn btn-success" id="addRuleBtn">Add Domain Rule</button>
+            </form>
+          </div>
+          <div class="mt-3">
+            <h5>Domain Rules</h5>
+            <ul class="list-group list-group-numbered" id="domainRulesList"></ul>
+          </div>
+          <button type="button" class="btn btn-primary mt-3" id="submitRulesBtn">Submit Rules</button>
+          <div class="mt-3">
+            <h5>Submitted Rules</h5>
+            <pre id="submittedRules"></pre>
+          </div>
+        </div>
+      </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script src="setup.js"></script>
+  <script>
+    let rulesArray = [];
+    document.addEventListener("DOMContentLoaded", function() {
+      loadRules(updateRulesList)
+      const addRuleBtn = document.getElementById("addRuleBtn");
+      const submitRulesBtn = document.getElementById("submitRulesBtn");
+      const domainRulesList = document.getElementById("domainRulesList");
+      const submittedRules = document.getElementById("submittedRules");
+      // edit 
+      const editPopup = document.getElementById("editPopup");
+      const editForm = document.getElementById("editForm");
+      const saveEditBtn = document.getElementById("saveEditBtn");
+      const cancelEditBtn = document.getElementById("cancelEditBtn");
+
+      const toggleRuleFormBtn = document.getElementById("toggleRuleFormBtn");
+      const ruleForm = document.getElementById("ruleForm");
+
+      // Initial button text
+      toggleRuleFormBtn.textContent = ruleForm.classList.contains("show") ? "Close" : "Add Domain Rule";
+
+      // Update button text when the form state changes
+      ruleForm.addEventListener("shown.bs.collapse", function() {
+        toggleRuleFormBtn.textContent = "Close";
+        toggleRuleFormBtn.classList.add('btn-danger')
+      });
+
+      ruleForm.addEventListener("hidden.bs.collapse", function() {
+        toggleRuleFormBtn.textContent = "Add Domain Rule";
+        toggleRuleFormBtn.classList.remove('btn-danger')
+      });
+
+      addRuleBtn.addEventListener("click", function() {
+        const ruleObject = {
+          rule: {
+            perSecondRule: document.getElementById("perSecondRule").checked,
+            perMinuteRule: document.getElementById("perMinuteRule").checked,
+            perHourRule: document.getElementById("perHourRule").checked,
+            perDayRule: document.getElementById("perDayRule").checked,
+            maxAmountPerDay: parseFloat(document.getElementById("maxAmountPerDay").value) || 0,
+            maxFreeRequestsPerDay: parseInt(document.getElementById("maxFreeRequestsPerDay").value) || 0,
+            maxFreeRequestsPerMinute: parseInt(document.getElementById("maxFreeRequestsPerMinute").value) || 0,
+            costPerRequest: parseFloat(document.getElementById("costPerRequest").value) || 0
+          },
+          domain: document.getElementById("domain").value || "undefined"
+        };
+        rulesArray.push(ruleObject);
+        updateRulesList();
+      });
+      
+      // Edit button click handler
+      function openEditPopup(index) {
+        editPopup.style.display = "flex";
+        const rule = rulesArray[index];
+        // Populate the edit form with rule data
+        document.getElementById("editDomain").value = rule.domain;
+        document.getElementById("editPerSecondRule").checked = rule.rule.perSecondRule;
+        document.getElementById("editPerMinuteRule").checked = rule.rule.perMinuteRule;
+        document.getElementById("editPerHourRule").checked = rule.rule.perHourRule;
+        document.getElementById("editPerDayRule").checked = rule.rule.perDayRule;
+        document.getElementById("editMaxAmountPerDay").value = rule.rule.maxAmountPerDay;
+        document.getElementById("editMaxFreeRequestsPerDay").value = rule.rule.maxFreeRequestsPerDay;
+        document.getElementById("editMaxFreeRequestsPerMinute").value = rule.rule.maxFreeRequestsPerMinute;
+        document.getElementById("editCostPerRequest").value = rule.rule.costPerRequest;
+
+        saveEditBtn.setAttribute("data-index", index);
+      }
+      // Save edit button click handler
+      saveEditBtn.addEventListener("click", function() {
+        const editedIndex = parseInt(saveEditBtn.getAttribute("data-index"));
+        const editedRule = {
+          domain: document.getElementById("editDomain").value || 'undefined',
+          rule: {
+            perSecondRule: document.getElementById("editPerSecondRule").checked,
+            perMinuteRule: document.getElementById("editPerMinuteRule").checked,
+            perHourRule: document.getElementById("editPerHourRule").checked,
+            perDayRule: document.getElementById("editPerDayRule").checked,
+            maxAmountPerDay: parseFloat(document.getElementById("editMaxAmountPerDay").value) || 0,
+            maxFreeRequestsPerDay: parseInt(document.getElementById("editMaxFreeRequestsPerDay").value) || 0,
+            maxFreeRequestsPerMinute: parseInt(document.getElementById("editMaxFreeRequestsPerMinute").value) || 0,
+            costPerRequest: parseFloat(document.getElementById("editCostPerRequest").value) || 0
+          }
+        };
+
+        // Update the rule in the array
+        rulesArray[editedIndex] = editedRule;
+
+        // Update the displayed list of rules
+        updateRulesList();
+        
+        // Close the edit popup
+        editPopup.style.display = "none";
+      });
+
+      // Function to update the displayed list of rules
+      function updateRulesList() {
+        console.log('I am running', rulesArray);
+
+        domainRulesList.innerHTML = "";
+        rulesArray.forEach(function(rule, index) {
+          const listItem = document.createElement("li");
+          listItem.classList.add("list-group-item");
+          listItem.innerHTML = `
+            <strong>${rule.domain}</strong>
+            <button class="btn btn-link edit-button" data-index="${index}">Edit</button><br>
+            Per Second: ${rule.rule.perSecondRule ? 'Yes' : 'No'}<br>
+            Per Minute: ${rule.rule.perMinuteRule ? 'Yes' : 'No'}<br>
+            Per Hour: ${rule.rule.perHourRule ? 'Yes' : 'No'}<br>
+            Per Day: ${rule.rule.perDayRule ? 'Yes' : 'No'}<br>
+            Max Amount Per Day: ${rule.rule.maxAmountPerDay}<br>
+            Max Free Requests Per Day: ${rule.rule.maxFreeRequestsPerDay}<br>
+            Max Free Requests Per Minute: ${rule.rule.maxFreeRequestsPerMinute}<br>
+            Cost Per Request: ${rule.rule.costPerRequest}
+          `;
+          domainRulesList.appendChild(listItem);
+          // Attach the event listener to the "Edit" button inside the list item
+          const editButton = listItem.querySelector(".edit-button");
+          editButton.addEventListener("click", function(event) {
+            const index = event.target.getAttribute("data-index");
+            openEditPopup(index);
+          });
+        });
+      }
+      // Cancel edit button click handler
+      cancelEditBtn.addEventListener("click", function() {
+        editPopup.style.display = "none";
+      });
+      submitRulesBtn.addEventListener("click", function() {
+        submittedRules.textContent = 'Updating...';
+        // Make an AJAX POST request to update the rules
+        fetch('/update-rules', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(transformArrayToObject([...rulesArray]))
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          submittedRules.textContent = JSON.stringify(rulesArray, null, 2);
+        })
+        .catch(error => {
+          console.error('Error updating rules', error);
+          submittedRules.textContent = JSON.stringify(error, null, 2);
+        });
+      });
+    });
+    // helpers
+    function transformArrayToObject(inputArray) {
+      const transformedObject = {};
+
+      inputArray.forEach(item => {
+          const domain = item.domain || "undefined";
+          const rule = item.rule;
+
+          transformedObject[domain] = {
+              perSecondRule: rule.perSecondRule,
+              perMinuteRule: rule.perMinuteRule,
+              perHourRule: rule.perHourRule,
+              perDayRule: rule.perDayRule,
+              maxAmountPerDay: rule.maxAmountPerDay || 0,
+              maxFreeRequestsPerDay: rule.maxFreeRequestsPerDay || 0,
+              maxFreeRequestsPerMinute: rule.maxFreeRequestsPerMinute || 0,
+              costPerRequest: rule.costPerRequest || 0
+          };
+      });
+
+      return transformedObject;
+    }
+
+    function transformObjectToArray(inputObject) {
+
+        const transformedArray = [];
+
+        for (const domain in inputObject) {
+          console.log(domain);
+            if (inputObject.hasOwnProperty(domain)) {
+                const rule = inputObject[domain];
+                transformedArray.push({
+                    domain: domain,
+                    rule: {
+                      perSecondRule: rule.perSecondRule,
+                      perMinuteRule: rule.perMinuteRule,
+                      perHourRule: rule.perHourRule,
+                      perDayRule: rule.perDayRule,
+                      maxAmountPerDay: rule.maxAmountPerDay || 0,
+                      maxFreeRequestsPerDay: rule.maxFreeRequestsPerDay || 0,
+                      maxFreeRequestsPerMinute: rule.maxFreeRequestsPerMinute || 0,
+                      costPerRequest: rule.costPerRequest || 0
+                    }
+                });
+            }
+        }
+        console.log('transformedArray', transformedArray);
+        return transformedArray;
+      }
+    
+    function loadRules(success) {
+      fetch('/rules') // Replace with your server URL
+        .then(response => response.json())
+        .then(data => {
+          rulesArray = transformObjectToArray(data);
+          console.log('data', rulesArray);
+          success();
+        })
+        .catch(error => {
+          console.error('Error fetching rules from the server', error);
+        });
+    }
+  </script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const socket = io();
+      const logContainer = document.getElementById('log-container');
+      socket.on('log', (message) => {
+        const messageP = document.createElement('p');
+        messageP.textContent = message;
+        logContainer.appendChild(messageP);
+        console.log('message', message);
+      });
+
+      function sendToggleRequest(action, port) {
+        const requestData = {
+          action,
+          port
+        };
+        console.log('requestData', requestData)
+        fetch('/api/proxy', {
+          method: 'POST',
+          body: JSON.stringify(requestData),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          const message = data.message;
+          const error = data.error;
+          const messageP = document.createElement('p');
+          if (error) {
+            messageP.textContent = error;
+            messageP.style.color = 'red'
+            logContainer.appendChild(messageP);
+          } else if (message) {
+            messageP.textContent = message;
+            logContainer.appendChild(messageP);
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          const messageP = document.createElement('p');
+          messageP.textContent = error.message;
+          messageP.style.color = 'red'
+          if(error.message) {
+            logContainer.appendChild(messageP);
+          }
+        });
+      }
+      const portInput = document.getElementById('portInput');
+      const proxyURL = document.getElementById("proxyUrl");
+      function updateDisplayedUrl() {
+        // Get the current URL
+        const currentUrl = window.location.href;
+
+        // Extract the host and port from the current URL
+        const urlParts = new URL(currentUrl);
+        const host = urlParts.hostname;
+        const port = portInput.value || "8080"; // Use the input value or "xyz" if empty
+
+        // Create a new URL with the modified port
+        const modifiedUrl = `<strong>Use proxy URL ==> </strong> <a href="">https://${host}:${port}/</a>`;
+
+        // Display the modified URL in the HTML element
+        proxyURL.innerHTML = modifiedUrl;
+      }
+      portInput.addEventListener('change', updateDisplayedUrl);
+      updateDisplayedUrl();
+      
+
+      // Event handlers for the buttons
+      document.getElementById('startBtn').addEventListener('click', () => {
+        console.log('logggg')
+        const port = document.getElementById('portInput').value;
+        sendToggleRequest('start', port);
+      });
+
+      document.getElementById('stopBtn').addEventListener('click', () => {
+        const port = document.getElementById('portInput').value;
+        sendToggleRequest('stop', port);
+      });
+
+      document.getElementById('rerunBtn').addEventListener('click', () => {
+        const port = document.getElementById('portInput').value;
+        sendToggleRequest('rerun', port);
+      });
+    })
+    
+  </script>
+</body>
+</html>

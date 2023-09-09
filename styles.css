@@ -1,0 +1,96 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.edit-popup1 {
+  display: none;
+  position: absolute;
+  width: calc(100% - 48px);
+  height: 100vh;
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  background-color: #16171866;
+  backdrop-filter: blur(10);
+}
+.edit-popup {
+  padding: 20px;
+}
+.container-wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+.resizable-container {
+  width: 100%;
+  overflow: auto;
+  position: relative;
+  padding: 24px;
+}
+@media screen and (max-width: 1024px) {
+  #container1 {
+    display: block;
+    width: 100vw !important;
+  }
+  #container2 {
+    display: none;
+    width: 100vw !important;
+  }
+}
+@media screen and (min-width: 1024px) {
+  #container1 {
+    display: block;
+    width: 50%;
+  }
+  #container2 {
+    display: block;
+    width: 50%;
+  }
+}
+.drag-handle {
+  width: 8px;
+  cursor: col-resize;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%; /* Place the handle on the right side of the container */
+  z-index: 1000;
+  background-color: black;
+}
+.top-tabs {
+  display: none; /* Initially hide the tab UI */
+  justify-content: space-between;
+}
+.top-tab {
+  cursor: pointer;
+  padding: 5px 10px;
+  width: 50%;
+}
+.top-tab.active {
+  background-color: var(--bs-primary);
+  color: var(--bs-light);
+}
+.hint{
+  font-size: small;
+}
+/* Custom CSS for the cell container */
+.cell-container {
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+}
+/* Custom CSS for the terminal-like area */
+.terminal {
+  border-radius: 5px;
+  padding: 10px;
+  height: calc(100vh - 300px); /* Adjust the height as needed */
+  overflow-y: scroll;
+  font-family: monospace; /* Use a monospaced font for code/logs */
+  background-color: var(--bs-dark-bg-subtle);
+  color: var(teal-800);
+  font-family: "Courier New", Courier, monospace;
+}
