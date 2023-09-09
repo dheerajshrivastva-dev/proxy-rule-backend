@@ -4,6 +4,12 @@
 
 This project provides a transparent proxy server with a user-friendly UI for managing proxy configurations and monitoring logs. It allows you to easily set up and configure proxy rules, start/stop the proxy server, and view real-time logs.
 
+## Demo
+
+- [Watch the Video 1](https://drive.google.com/file/d/1GKEsk2LnBxA32W7_YJIY4FnaP1rT65gW/view?usp=sharing)
+
+- [Watch the Video 2](https://drive.google.com/file/d/1SBlttRZsBsH9xGH1a7hqZX4m04EL8hL_/view?usp=sharing)
+
 ## Features
 
 ### Transparent Proxy Server
