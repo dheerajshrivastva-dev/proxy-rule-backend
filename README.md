@@ -1,40 +1,39 @@
-# Transparent Proxy and UI
+# Transparent Proxy with Rate Limiting and Easy API Configuration
 
 ## Overview
 
-This project provides a transparent proxy server with a user-friendly UI for managing proxy configurations and monitoring logs. It allows you to easily set up and configure proxy rules, start/stop the proxy server, and view real-time logs.
-
-## Demo
-
-- [Watch the Video 1](https://drive.google.com/file/d/1GKEsk2LnBxA32W7_YJIY4FnaP1rT65gW/view?usp=sharing)
-
-- [Watch the Video 2](https://drive.google.com/file/d/1SBlttRZsBsH9xGH1a7hqZX4m04EL8hL_/view?usp=sharing)
+This project provides a powerful transparent proxy server with built-in rate limiting capabilities and an intuitive UI for effortless API configuration. It allows you to easily manage proxy rules, set up rate limits, and monitor network traffic in real-time.
 
 ## Features
 
 ### Transparent Proxy Server
 
-- A transparent proxy server that intercepts and forwards network traffic.
-- Supports HTTP and HTTPS traffic.
-- Allows you to define custom proxy rules to intercept and modify network requests and responses.
+- Intercept and forward network traffic seamlessly.
+- Support for both HTTP and HTTPS traffic.
+- User-friendly interface for defining custom proxy rules.
+
+### Rate Limiting
+
+- Built-in rate limiting functionality to control API traffic.
+- Configure rate limits per API, allowing you to manage access and prevent abuse.
+- Fine-grained control over requests per second (RPS) and requests per minute (RPM).
 
 ### User Interface (UI)
 
-- An intuitive web-based UI for configuring proxy rules and managing the proxy server.
-- Easily add, edit, and delete proxy rules through the UI.
-- Start and stop the proxy server with the click of a button.
-- Real-time log display to monitor proxy server activities.
-- Responsive design for seamless use on both desktop and mobile devices.
+- An intuitive web-based UI for configuring API rules and managing the proxy server.
+- Easily add, edit, and delete API configurations through the UI.
+- Real-time log display for monitoring network activities.
+- Responsive design for optimal use on all devices.
 
-### Configuration Management
+### Easy API Configuration
 
-- Create and manage proxy rules using a user-friendly form-based interface.
-- Specify target hosts, ports, and modification rules for each proxy rule.
-- Edit and delete existing rules as needed.
+- Simplified API rule creation using a form-based interface.
+- Specify target hosts, ports, and rate limit settings for each API.
+- Edit or delete existing API configurations with ease.
 
 ## Getting Started
 
-Follow these steps to get the project up and running:
+Follow these steps to set up the project and start using rate limiting for your APIs:
 
 ### Prerequisites
 
@@ -66,20 +65,20 @@ Follow these steps to get the project up and running:
 ### Usage
 
 1. Access the web-based UI.
-2. Configure proxy rules by adding, editing, or deleting them.
-3. Start the proxy server to intercept and modify network traffic based on your rules.
-4. Monitor proxy server activities and view logs in real-time using the UI.
+2. Configure API rules by adding, editing, or deleting them.
+3. Utilize the built-in rate limiting features to manage access to your APIs effectively.
+4. Monitor network activities and view real-time logs using the UI.
 
 ## Configuration
 
-You can configure the proxy server by adding or editing rules through the UI. Each rule allows you to specify the following:
+You can easily configure API rules through the UI, allowing you to specify:
 
 - Target host and port to intercept traffic.
-- Modification rules to apply to intercepted requests and responses.
+- Rate limits for each API, ensuring controlled access.
 
 ## Logging
 
-The UI provides a real-time log display to help you monitor the proxy server's activities. You can track requests, responses, and any modifications made to network traffic.
+The UI offers a real-time log display, providing insights into network activities, rate limiting, and API interactions.
 
 ## Contributing
 
@@ -97,6 +96,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Contact
 
-If you have any questions or feedback, please feel free to contact us at [email@example.com].
+If you have any questions or feedback, please feel free to contact us at [dheerajshrivastva2@gmail.com].
 
 Happy proxying!
