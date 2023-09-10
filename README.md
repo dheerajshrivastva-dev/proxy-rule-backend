@@ -10,6 +10,7 @@ This project provides a powerful transparent proxy server with built-in rate-lim
 
 [UI demo edit or remove rules](https://github.com/dheerajshrivastva-dev/proxy-rule-backend/assets/46869372/cf45ce12-307f-463a-8886-39547165da47)
 
+### Test the proxy using this [Package](https://github.com/dheerajshrivastva-dev/Api-runner-py)
 
 ## Features
 
