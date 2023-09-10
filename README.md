@@ -45,8 +45,8 @@ Follow these steps to get the project up and running:
 1. Clone the repository:
 
 ```bash
-  git clone https://github.com/your-username/transparent-proxy.git
-  cd transparent-proxy
+  git clone https://github.com/dheerajshrivastva-dev/proxy-rule-backend
+  cd proxy-rule-backend
 ```
 
 2. Install dependencies:
