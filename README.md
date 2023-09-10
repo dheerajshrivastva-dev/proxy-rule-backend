@@ -2,7 +2,14 @@
 
 ## Overview
 
-This project provides a powerful transparent proxy server with built-in rate limiting capabilities and an intuitive UI for effortless API configuration. It allows you to easily manage proxy rules, set up rate limits, and monitor network traffic in real-time.
+This project provides a powerful transparent proxy server with built-in rate-limiting capabilities and an intuitive UI for effortless API configuration. It allows you to easily manage proxy rules, set up rate limits, and monitor network traffic in real time.
+
+## Demo
+
+[UI demo](https://github.com/dheerajshrivastva-dev/proxy-rule-backend/assets/46869372/0ce15ef8-5972-4b48-bd00-4424a1016109)
+
+[UI demo edit or remove rules](https://github.com/dheerajshrivastva-dev/proxy-rule-backend/assets/46869372/cf45ce12-307f-463a-8886-39547165da47)
+
 
 ## Features
 
@@ -28,7 +35,7 @@ This project provides a powerful transparent proxy server with built-in rate lim
 ### Easy API Configuration
 
 - Simplified API rule creation using a form-based interface.
-- Specify target hosts, ports, and rate limit settings for each API.
+- Specify each API's domain and setup rules.
 - Edit or delete existing API configurations with ease.
 
 ## Getting Started
@@ -66,15 +73,15 @@ Follow these steps to set up the project and start using rate limiting for your 
 
 1. Access the web-based UI.
 2. Configure API rules by adding, editing, or deleting them.
-3. Utilize the built-in rate limiting features to manage access to your APIs effectively.
+3. Utilize the built-in rate-limiting features to manage access to your APIs effectively.
 4. Monitor network activities and view real-time logs using the UI.
 
 ## Configuration
 
 You can easily configure API rules through the UI, allowing you to specify:
 
-- Target host and port to intercept traffic.
-- Rate limits for each API, ensuring controlled access.
+- Host name or Domain name.
+- Rate limits for each API Domain, ensuring controlled access.
 
 ## Logging
 
@@ -96,6 +103,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Contact
 
-If you have any questions or feedback, please feel free to contact us at [dheerajshrivastva2@gmail.com].
+If you have any questions or feedback, please contact us at [dheerajshrivastva2@gmail.com].
 
-Happy proxying!
+Experience the power of rate-limiting and simplified API configuration with our transparent proxy server!
